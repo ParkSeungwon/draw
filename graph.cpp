@@ -6,11 +6,14 @@ using namespace Gtk;
 class Win : public Window
 {
 public:
-	Win() : graph({-3, 3, -1, 6}){
+	Win() : graph({-5, 5, -3, 6}){
 		add(graph);
 		graph.add_graph([](float x){return x*x;});
 		graph.add_graph([](float x){return sin(x);});
 		graph.add_graph([](float x){return x*x*x-2*x+3;});
+		graph.add_graph([](float x){return sqrt(4-x*x);}, -2, 2);
+		graph.add_graph([](float x){return -sqrt(4-x*x);}, -2, 2);
+		graph.add_graph([](float x){return log(x);}, 0.1, 6);
 		show_all_children();
 	}
 
