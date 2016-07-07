@@ -11,9 +11,11 @@ public:
 		graph.add_graph([](float x){return x*x;});
 		graph.add_graph([](float x){return sin(x);});
 		graph.add_graph([](float x){return x*x*x-2*x+3;});
+		graph.add_graph([](float x){return 3*x*x-2;});
+		graph.add_graph([](float x){return 3;});
 		graph.add_graph([](float x){return sqrt(4-x*x);}, -2, 2);
 		graph.add_graph([](float x){return -sqrt(4-x*x);}, -2, 2);
-		graph.add_graph([](float x){return log(x);}, 0.1, 6);
+		graph.add_graph([](float x){return log(x);}, 0.001, 6);
 		show_all_children();
 	}
 

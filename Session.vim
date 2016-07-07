@@ -3,42 +3,24 @@ if &cp | set nocp | endif
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/Programming/gtkmm/draw
+cd ~/Programming/draw
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +0 ~/Programming/gtkmm/draw/graph.cpp
-badd +0 ~/Programming/gtkmm/draw/opengraph.cc
-badd +0 ~/Programming/gtkmm/draw/opengraph.h
-badd +0 ~/Programming/gtkmm/draw/Makefile
+badd +1 ~/Programming/gtkmm/draw/graph.cpp
+badd +1 ~/Programming/gtkmm/draw/opengraph.cc
+badd +1 ~/Programming/gtkmm/draw/opengraph.h
+badd +1 ~/Programming/gtkmm/draw/Makefile
+badd +0 ~/Makefile
+badd +0 ~/Programming/draw/graph.cpp
+badd +0 ~/Programming/draw/opengraph.cc
+badd +0 ~/Programming/draw/opengraph.h
 argglobal
 silent! argdel *
-argadd Makefile
+argadd ~/Makefile
 set stal=2
-edit ~/Programming/gtkmm/draw/graph.cpp
-set splitbelow splitright
-set nosplitbelow
-set nosplitright
-wincmd t
-set winheight=1 winwidth=1
-argglobal
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 24) / 48)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-1
-normal! 0
-tabedit ~/Programming/gtkmm/draw/Makefile
+edit ~/Programming/draw/opengraph.cc
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
@@ -60,7 +42,7 @@ exe s:l
 normal! zt
 1
 normal! 0
-tabedit ~/Programming/gtkmm/draw/opengraph.h
+tabedit ~/Programming/draw/opengraph.h
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
@@ -82,7 +64,7 @@ exe s:l
 normal! zt
 1
 normal! 0
-tabedit ~/Programming/gtkmm/draw/opengraph.cc
+tabedit ~/Programming/draw/graph.cpp
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
@@ -104,7 +86,7 @@ exe s:l
 normal! zt
 1
 normal! 0
-tabnext 2
+tabnext 1
 set stal=1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
