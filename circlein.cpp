@@ -6,15 +6,17 @@ using namespace Gtk;
 class Win : public Window
 {
 public:
-	Win() : graph({0, 0.5, 0, 0.5}){
+	Win() : graph({-1, 9, -1, 14}) { 
 		add(graph);
 		//graph.add_graph([](float x){return sqrt(x*x*x -3*x + 11);}, -2, 20);
-		//graph.add_polar([](float t){return (1-cos(t));});
-		//graph.add_polar([](float t){return 1;}, 3, 0.3);
+		graph.add_graph([](float x){return sqrt(3)*x;});
+		graph.add_graph([](float x){return -sqrt(3)*(x-8);});
+		graph.add_graph([](float x){return -1/sqrt(3)*(x-8);});
+		graph.add_polar([](float t){return 4;}, 4, 4*sqrt(3));
 		//graph.add_graph([](float x){return cos(x);});
-		graph.add_graph([](float x){return abs(log(1/(1-x))-x);});
-		graph.add_graph([](float x){return 2*x*x;});
-		graph.add_text("cosx, circle", 2, 1);
+		graph.add_text("O", 1, sqrt(3));
+		graph.add_text("E", 0, -0.2);
+		graph.add_text("F", 8, -0.2);
 		show_all_children();
 
 	}

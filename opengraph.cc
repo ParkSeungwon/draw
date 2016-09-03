@@ -1,3 +1,4 @@
+#include<tuple>
 #include"opengraph.h"
 using namespace std;
 
@@ -19,6 +20,16 @@ void OpenGraph::add_graph(function<float(float)> fn, float sx, float ex)
 {
 	to_draws.push_back(fn);
 	xranges.push_back({sx, ex});
+}
+
+void OpenGraph::add_text(string s, float x, float y)
+{
+	texts.push_back(make_tuple(s, x, y));
+}
+
+void OpenGraph::add_polar(function<float(float)> fn, float x, float y)
+{
+	polar_draws.push_back(make_tuple(fn, x, y));
 }
 
 bool OpenGraph::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
@@ -66,6 +77,12 @@ bool OpenGraph::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 		cr->show_text('_' + to_string(y).erase(4));
 		cr->transform(Cairo::Matrix(1,0,0,-1,0,0));
 	}
+	for(auto& a : texts) {
+		cr->move_to(get<1>(a), get<2>(a));
+		cr->transform(Cairo::Matrix(1,0,0,-1,0,0));
+		cr->show_text(get<0>(a));
+		cr->transform(Cairo::Matrix(1,0,0,-1,0,0));
+	}
 	cr->restore();
 
 	//graph drawing
@@ -74,6 +91,16 @@ bool OpenGraph::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 		for(float x = xranges[i].first + step; x < xranges[i].second; x += step) 
 			cr->line_to(x, to_draws[i](x));
 		cr->stroke();
+	}
+	for(auto& a : polar_draws) {
+		cr->save();
+		auto f = get<0>(a);
+		cr->translate(get<1>(a), get<2>(a));
+		cr->move_to(f(0), 0);
+		for(float theta = step; theta < M_PI * 2; theta += step) 
+			cr->line_to(f(theta)*cos(theta), f(theta)*sin(theta));
+		cr->stroke();
+		cr->restore();
 	}
 	return true;
 }

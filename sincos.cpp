@@ -2,6 +2,7 @@
 #include<cmath>
 using namespace std;
 using namespace Gtk;
+
 float normal(float x) {
 	double sigma = 1;;
 	double m = 0;
